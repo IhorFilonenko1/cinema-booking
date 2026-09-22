@@ -15,6 +15,7 @@ def print_menu():
     print("7] Мої бронювання")
     print("8] Скасування бронювання")
     print("9] Статистика")
+    print("10] Оцінити фільм")
     print("0] Вихід")
 
 
@@ -117,6 +118,17 @@ def show_statistics():
     print(f'Вільних місць: {stats["free_seats"]}')
 
 
+def rate_movie_prompt():
+    show_movies()
+    movie_id = int(input("ID фільму: "))
+    rating = int(input("Оцінка (1-10): "))
+    if movies.rate_movie(movie_id, rating) is None:
+        print("Не вдалося оцінити: перевірте ID та оцінку.")
+        return
+    average = movies.get_average_rating(movie_id)
+    print(f"Оцінку додано. Середня оцінка фільму: {average}")
+
+
 def main():
     while True:
         print_menu()
@@ -139,6 +151,8 @@ def main():
             cancel_booking_prompt()
         elif choice == "9":
             show_statistics()
+        elif choice == "10":
+            rate_movie_prompt()
         elif choice == "0":
             print("До побачення!")
             break

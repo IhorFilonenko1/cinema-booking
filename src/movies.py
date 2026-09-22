@@ -83,3 +83,24 @@ def search_movies(query):
     """Шукає фільми за частиною назви (без урахування регістру)."""
     query = query.lower()
     return [m for m in movies if query in m["title"].lower()]
+
+
+_ratings = {}
+
+
+def rate_movie(movie_id, rating):
+    """Оцінює фільм за шкалою 1-10."""
+    if get_movie(movie_id) is None:
+        return None
+    if not 1 <= rating <= 10:
+        return None
+    _ratings.setdefault(movie_id, []).append(rating)
+    return rating
+
+
+def get_average_rating(movie_id):
+    """Повертає середню оцінку фільму або None."""
+    ratings = _ratings.get(movie_id)
+    if not ratings:
+        return None
+    return round(sum(ratings) / len(ratings), 1)
