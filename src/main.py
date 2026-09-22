@@ -12,6 +12,7 @@ def print_menu():
     print("4] Забронювати квиток")
     print("5] Мої бронювання")
     print("6] Скасувати бронювання")
+    print("7] Пошук фільмів")
     print("0] Вихід")
 
 
@@ -85,6 +86,16 @@ def cancel_booking_prompt():
     print(f'Скасовано бронювання №{cancelled["id"]} ({cancelled["title"]}).')
 
 
+def search_prompt():
+    query = input("Назва або частина назви: ").strip()
+    results = movies.search_movies(query)
+    if not results:
+        print("Нічого не знайдено.")
+        return
+    for m in results:
+        print(f'{m["id"]}. {m["title"]} ({m["year"]}) — місць: {m["seats"]}')
+
+
 def main():
     while True:
         print_menu()
@@ -101,6 +112,8 @@ def main():
             show_bookings()
         elif choice == "6":
             cancel_booking_prompt()
+        elif choice == "7":
+            search_prompt()
         elif choice == "0":
             print("До побачення!")
             break
