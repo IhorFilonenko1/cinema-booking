@@ -61,3 +61,9 @@ def add_movie(title, genre, year, duration, seats, price):
     _next_id += 1
     movies.append(movie)
     return movie
+
+
+def search_movies(query):
+    """Шукає фільми за частиною назви (без урахування регістру)."""
+    query = query.lower()
+    return [m for m in movies if query in m["title"].lower()]
