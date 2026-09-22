@@ -57,3 +57,12 @@ def get_statistics():
         "booked_tickets": sum(b["tickets"] for b in bookings),
         "free_seats": sum(m["seats"] for m in movies.list_movies()),
     }
+
+
+def calculate_discount(total_price, percent):
+    """Розраховує суму з урахуванням знижки у відсотках."""
+    if percent <= 0:
+        return round(total_price, 2)
+    if percent > 100:
+        percent = 100
+    return round(total_price * (100 - percent) / 100, 2)
