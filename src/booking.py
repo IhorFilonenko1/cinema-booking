@@ -12,7 +12,7 @@ def choose_movie(movie_id):
     return movies.get_movie(movie_id)
 
 
-def book_tickets(movie_id, tickets):
+def book_tickets(movie_id, tickets, discount_percent=0):
     """Бронює квитки на фільм. Повертає бронювання або None."""
     global _next_booking_id
     movie = movies.get_movie(movie_id)
@@ -26,7 +26,7 @@ def book_tickets(movie_id, tickets):
         "movie_id": movie_id,
         "title": movie["title"],
         "tickets": tickets,
-        "total": round(movie["price"] * tickets, 2),
+        "total": calculate_discount(movie["price"] * tickets, discount_percent),
     }
     _next_booking_id += 1
     bookings.append(booking)

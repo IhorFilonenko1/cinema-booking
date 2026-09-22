@@ -72,7 +72,8 @@ def book_tickets_prompt():
         print("Фільм не знайдено.")
         return
     tickets = int(input("Кількість квитків: "))
-    result = booking.book_tickets(movie_id, tickets)
+    discount = float(input("Знижка % (0 — без знижки): ") or 0)
+    result = booking.book_tickets(movie_id, tickets, discount)
     if result is None:
         print("Не вдалося забронювати: недостатньо вільних місць.")
         return
