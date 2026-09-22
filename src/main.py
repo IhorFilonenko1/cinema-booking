@@ -7,6 +7,7 @@ import movies
 def print_menu():
     print("\n=== Cinema Booking ===")
     print("1] Список фільмів")
+    print("8] Обрані фільми")
     print("2] Додати фільм")
     print("3] Інформація про фільм")
     print("4] Забронювати квиток")
@@ -22,6 +23,18 @@ def show_movies():
             f'{m["id"]}. {m["title"]} ({m["year"]}, {m["genre"]}) '
             f'— {m["duration"]} хв, місць: {m["seats"]}, ціна: {m["price"]:.2f}'
         )
+
+
+def favorites_prompt():
+    for m in movies.list_favorites():
+        print(f'{m["id"]}. {m["title"]} ({m["year"]})')
+    movie_id = input("ID фільму, щоб додати в обране (Enter — пропустити): ").strip()
+    if movie_id:
+        movie = movies.add_to_favorites(int(movie_id))
+        if movie is None:
+            print("Фільм не знайдено або вже в обраному.")
+        else:
+            print(f'"{movie["title"]}" додано в обране.')
 
 
 def add_movie_prompt():
@@ -102,6 +115,8 @@ def main():
         choice = input("Оберіть опцію: ").strip()
         if choice == "1":
             show_movies()
+        elif choice == "8":
+            favorites_prompt()
         elif choice == "2":
             add_movie_prompt()
         elif choice == "3":
