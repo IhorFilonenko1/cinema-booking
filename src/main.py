@@ -1,5 +1,6 @@
 """Точка входу застосунку Cinema Booking."""
 
+import booking
 import movies
 
 
@@ -8,6 +9,8 @@ def print_menu():
     print("1] Список фільмів")
     print("2] Додати фільм")
     print("3] Інформація про фільм")
+    print("4] Забронювати квиток")
+    print("5] Мої бронювання")
     print("0] Вихід")
 
 
@@ -45,6 +48,32 @@ def movie_info_prompt():
     )
 
 
+def book_tickets_prompt():
+    show_movies()
+    movie_id = int(input("ID фільму: "))
+    movie = booking.choose_movie(movie_id)
+    if movie is None:
+        print("Фільм не знайдено.")
+        return
+    tickets = int(input("Кількість квитків: "))
+    result = booking.book_tickets(movie_id, tickets)
+    if result is None:
+        print("Не вдалося забронювати: недостатньо вільних місць.")
+        return
+    print(
+        f'Заброньовано {result["tickets"]} квитк(ів) на "{result["title"]}". '
+        f'Сума: {result["total"]:.2f}. № бронювання: {result["id"]}'
+    )
+
+
+def show_bookings():
+    for b in booking.get_bookings():
+        print(
+            f'№{b["id"]}: {b["title"]} — {b["tickets"]} квитк(ів), '
+            f'сума {b["total"]:.2f}'
+        )
+
+
 def main():
     while True:
         print_menu()
@@ -55,6 +84,10 @@ def main():
             add_movie_prompt()
         elif choice == "3":
             movie_info_prompt()
+        elif choice == "4":
+            book_tickets_prompt()
+        elif choice == "5":
+            show_bookings()
         elif choice == "0":
             print("До побачення!")
             break
