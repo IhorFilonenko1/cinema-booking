@@ -14,6 +14,7 @@ def print_menu():
     print("6] Бронювання")
     print("7] Мої бронювання")
     print("8] Скасування бронювання")
+    print("9] Статистика")
     print("0] Вихід")
 
 
@@ -109,6 +110,13 @@ def search_prompt():
         print(f'{m["id"]}. {m["title"]} ({m["year"]}) — місць: {m["seats"]}')
 
 
+def show_statistics():
+    stats = booking.get_statistics()
+    print(f'Доступно фільмів: {stats["movies"]}')
+    print(f'Заброньовано квитків: {stats["booked_tickets"]}')
+    print(f'Вільних місць: {stats["free_seats"]}')
+
+
 def main():
     while True:
         print_menu()
@@ -129,6 +137,8 @@ def main():
             show_bookings()
         elif choice == "8":
             cancel_booking_prompt()
+        elif choice == "9":
+            show_statistics()
         elif choice == "0":
             print("До побачення!")
             break
