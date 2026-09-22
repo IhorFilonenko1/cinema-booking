@@ -30,6 +30,8 @@ movies = [
     },
 ]
 
+favorites = []
+
 _next_id = 4
 
 
@@ -44,6 +46,20 @@ def get_movie(movie_id):
         if movie["id"] == movie_id:
             return movie
     return None
+
+
+def add_to_favorites(movie_id):
+    """Додає фільм до списку обраного."""
+    movie = get_movie(movie_id)
+    if movie is None or movie in favorites:
+        return None
+    favorites.append(movie)
+    return movie
+
+
+def list_favorites():
+    """Повертає список обраних фільмів."""
+    return favorites
 
 
 def add_movie(title, genre, year, duration, seats, price):
