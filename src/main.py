@@ -6,9 +6,15 @@ import movies
 
 def print_menu():
     print("\n=== Cinema Booking ===")
-    print("1] Фільми")
-    print("2] Забронювати квиток")
-    print("3] Вихід")
+    print("1] Перегляд фільмів")
+    print("2] Додати фільм")
+    print("3] Інформація про фільм")
+    print("4] Пошук фільмів")
+    print("5] Обрані фільми")
+    print("6] Бронювання")
+    print("7] Мої бронювання")
+    print("8] Скасування бронювання")
+    print("0] Вихід")
 
 
 def show_movies():
@@ -110,8 +116,20 @@ def main():
         if choice == "1":
             show_movies()
         elif choice == "2":
-            book_tickets_prompt()
+            add_movie_prompt()
         elif choice == "3":
+            movie_info_prompt()
+        elif choice == "4":
+            search_prompt()
+        elif choice == "5":
+            favorites_prompt()
+        elif choice == "6":
+            book_tickets_prompt()
+        elif choice == "7":
+            show_bookings()
+        elif choice == "8":
+            cancel_booking_prompt()
+        elif choice == "0":
             print("До побачення!")
             break
         else:
