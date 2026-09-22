@@ -48,3 +48,12 @@ def cancel_booking(booking_id):
             bookings.remove(booking)
             return booking
     return None
+
+
+def get_statistics():
+    """Загальна статистика кінотеатру."""
+    return {
+        "movies": len(movies.list_movies()),
+        "booked_tickets": sum(b["tickets"] for b in bookings),
+        "free_seats": sum(m["seats"] for m in movies.list_movies()),
+    }
