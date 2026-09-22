@@ -36,3 +36,15 @@ def book_tickets(movie_id, tickets):
 def get_bookings():
     """Повертає список усіх бронювань."""
     return bookings
+
+
+def cancel_booking(booking_id):
+    """Скасовує бронювання та повертає місця у фільм."""
+    for booking in bookings:
+        if booking["id"] == booking_id:
+            movie = movies.get_movie(booking["movie_id"])
+            if movie is not None:
+                movie["seats"] += booking["tickets"]
+            bookings.remove(booking)
+            return booking
+    return None

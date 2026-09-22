@@ -11,6 +11,7 @@ def print_menu():
     print("3] Інформація про фільм")
     print("4] Забронювати квиток")
     print("5] Мої бронювання")
+    print("6] Скасувати бронювання")
     print("0] Вихід")
 
 
@@ -74,6 +75,16 @@ def show_bookings():
         )
 
 
+def cancel_booking_prompt():
+    show_bookings()
+    booking_id = int(input("№ бронювання: "))
+    cancelled = booking.cancel_booking(booking_id)
+    if cancelled is None:
+        print("Бронювання не знайдено.")
+        return
+    print(f'Скасовано бронювання №{cancelled["id"]} ({cancelled["title"]}).')
+
+
 def main():
     while True:
         print_menu()
@@ -88,6 +99,8 @@ def main():
             book_tickets_prompt()
         elif choice == "5":
             show_bookings()
+        elif choice == "6":
+            cancel_booking_prompt()
         elif choice == "0":
             print("До побачення!")
             break
